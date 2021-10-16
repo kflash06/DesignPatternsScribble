@@ -1,5 +1,7 @@
 package in.pelligent;
 
+import java.util.Objects;
+
 // Singleton Design Pattern
 public class Speaker {
     private AudioSource src;
@@ -18,20 +20,23 @@ public class Speaker {
     }
 
     private void setSrc(AudioSource src) {
-        System.out.printf("Updated audio src to %s\n", src.toString());
-        this.src = src;
+        if (this.src == null || !this.src.getSrcName().equals(src.getSrcName())) {
+            System.out.printf("Updated audio src to %s\n", src.toString());
+            this.src = src;
+        }
     }
 
     public void play(AudioSource src) {
-        pause(this.src);
+//        Implement a system to change src only if different.
         setSrc(src);
+        pause(this.src);
         System.out.printf("Playing from %s\n", src.toString());
         active = true;
     }
 
     public void pause(AudioSource src) {
         if (active)
-            System.out.printf("Pausing from %s\n", src.toString());
+                System.out.printf("Pausing from %s\n", src.toString());
         else
             System.out.println("Fresh playback");
     }
