@@ -1,17 +1,33 @@
 package in.pelligent;
 
-public class AudioSource {
+public class AudioSource implements CloneableAudioSrc {
     private BitrateController bitrateController;
     private String name;
 
     private Icon icon;
     private String subscriptionType;
 
-    private AudioSource(AudioSourceBuilder builder) {
-        this.name = builder.name;
-        this.bitrateController = builder.bitrateController;
-        this.icon = builder.icon;
-        this.subscriptionType = builder.subscriptionType;
+    public AudioSource (String name, BitrateController controller, Icon icon, String subscriptionType) {
+        this.name = name;
+        this.bitrateController = controller;
+        this.icon = icon;
+        this.subscriptionType = subscriptionType;
+    }
+
+    public void setBitrateController(BitrateController bitrateController) {
+        this.bitrateController = bitrateController;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+    }
+
+    public void setSubscriptionType(String subscriptionType) {
+        this.subscriptionType = subscriptionType;
     }
 
     BitrateController getBitRateController() {
@@ -43,33 +59,6 @@ public class AudioSource {
         play();
     }
 
-    public static class AudioSourceBuilder {
-        private BitrateController bitrateController;
-        private String name;
-
-        private Icon icon;
-        private String subscriptionType;
-
-        public AudioSourceBuilder(String name, BitrateController controller) {
-            bitrateController = controller;
-            this.name = name;
-        }
-
-        public AudioSourceBuilder setIcon(Icon icon) {
-            this.icon = icon;
-            return this;
-        }
-
-        public AudioSourceBuilder setSubscriptionType(String subscriptionType) {
-            this.subscriptionType = subscriptionType;
-            return this;
-        }
-
-        public AudioSource build() {
-            return new AudioSource(this);
-        }
-    }
-
     @Override
     public String toString() {
         return "AudioSource{" +
@@ -77,5 +66,11 @@ public class AudioSource {
                 ", icon=" + icon +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public AudioSource clone() {
+        AudioSource src = new AudioSource(name, new BitrateController(bitrateController.getQuality()), new Icon(icon.getBitmap(), icon.getUri()), subscriptionType);
+        return src;
     }
 }

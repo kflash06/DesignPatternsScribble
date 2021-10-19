@@ -16,4 +16,20 @@ public class Icon {
     public String getUri() {
         return uri;
     }
+
+    public void setBitmap(String bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    @Override
+    public String toString() {
+        return "Icon{" +
+                "bitmap='" + bitmap + '\'' +
+                ", uri='" + uri + '\'' +
+                '}';
+    }
 }

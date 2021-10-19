@@ -5,14 +5,11 @@ import java.util.Locale;
 public class Main {
 
     public static void main(String[] args) {
-        AudioSource amazonMusic = new AudioSource.AudioSourceBuilder("Amazon Music", new BitrateController(Quality.MEDIUM))
-                .setSubscriptionType("Free")
-                .build();
+        AudioSource amazonMusic = new AudioSource("Amazon Music", new BitrateController(Quality.MEDIUM), new Icon("340X340", "./amazonMusic.png"), "Paid");
 
-        AudioSource spotify = new AudioSource.AudioSourceBuilder("Spotify", new BitrateController(Quality.SUPER_HIGH))
-                .setSubscriptionType("Paid")
-                .setIcon(new Icon("340X340", "./icon.png"))
-                .build();
+        AudioSource spotify = amazonMusic.clone();
+        spotify.setName("Spotify");
+        spotify.getIcon().setUri("./spotify.png");
 
         amazonMusic.play();
         amazonMusic.next();

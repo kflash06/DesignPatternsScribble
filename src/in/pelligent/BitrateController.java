@@ -2,8 +2,9 @@ package in.pelligent;
 
 public class BitrateController {
     private int bitrate;
-
+    private Quality quality;
     public BitrateController(Quality quality) {
+        this.quality = quality;
         switch (quality) {
             case LOW:
                 bitrate = 128;
@@ -22,6 +23,10 @@ public class BitrateController {
 
     public int getBitrate() {
         return bitrate;
+    }
+
+    public Quality getQuality() {
+        return quality;
     }
 
     @Override
